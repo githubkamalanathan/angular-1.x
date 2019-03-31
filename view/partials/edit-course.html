@@ -1,0 +1,20 @@
+<div>
+    <h1>Edit Course</h1>
+    <p>Name: <input type="text" ng-model="courseToEdit.name" /></p>
+    <p>Category: <select ng-model="courseToEdit.category">
+            <option value="No selection" selected>Please select</option>
+            <option value="Development">Development</option>
+            <option value="Lifestyle">Lifestyle</option>
+            <option value="Business">Business</option>
+            <option value="Personal Development">Personal Development</option>
+            <option value="Design">Design</option>
+            <option value="Marketing">Marketing</option>
+            <option value="Music">Music</option>
+        </select></p>
+    <p>Timeline: <input type="text" ng-model="courseToEdit.timeline" /></p>
+    <p>Price: <input type="text" ng-model="courseToEdit.price" /></p>
+    <p>
+        <button ng-click="updateCourse()">Update</button>
+        <button ng-click="close()">Cancel</button>
+    </p>
+</div>

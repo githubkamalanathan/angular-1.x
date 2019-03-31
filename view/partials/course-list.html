@@ -1,0 +1,23 @@
+<div>
+<h1>Course(s)</h1>
+<table>
+    <thead>
+        <th>#</th>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Timeline</th>
+        <th>Price</th>
+    </thead>
+    <tbody>
+        <tr ng-repeat="course in courses">
+            <td>{{$index + 1}}</td>
+            <td>{{course.name | uppercase}}</td>
+            <td>{{course.category}}</td>
+            <td>{{course.timeline}}</td>
+            <td>{{course.price | currency: 'INR - '}}</td>
+            <td><a href="#!/course/edit/{{$index}}">Edit</button></td>
+            <td><button ng-click="deleteCourse()">Delete</button></td>
+        </tr>
+    </tbody>
+</table>
+</div>

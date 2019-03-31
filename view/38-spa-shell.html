@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Angular - Single Page Application</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="scripts/angular.js"></script>
+    <script src="scripts/angular-route.js"></script>
+
+    <script>
+        (function () {
+            var name = 'myApp',
+                requires = ["ngRoute"],
+                myApp = null;
+
+            myApp = angular.module(name, requires);
+            myApp.config(function ($routeProvider) {
+                $routeProvider
+                    .when("/courses", {
+                        templateUrl: "partials/course-list.html",
+                        controller: "CourseCtrl"
+                    }).when("/course/add", {
+                        templateUrl: "partials/add-course.html",
+                        controller: "CourseCtrl"
+                    }).when("/course/edit/:id", {
+                        templateUrl: "partials/edit-course.html",
+                        controller: "CourseCtrl"
+                    }).otherwise({
+                        redirectTo: "/courses"
+                    })
+            });
+            myApp.factory("CourseService", function ($http, $q) {
+                return {
+                    loadCourse: function () {
+                        var deferred = $q.defer();//Promise API
+                        $http.get("courses.json").then(function (successData) {
+                            deferred.resolve(successData.data);
+                        }, function (errorData) {
+                            deferred.reject(errorData);
+                        });
+                        return deferred.promise;
+                    },
+                    getCourseById: function (id) {
+                        var deferred = $q.defer();
+                        $http.get("courses.json").then(function (successData) {
+                            deferred.resolve(successData.data[id]);
+                        }), function (errorData) {
+                            deferred.reject(errorData);
+                        };
+                        return deferred.promise;
+                    }
+                }
+            });
+            myApp.controller('CourseCtrl', function ($scope, $http, $location, $routeParams, CourseService) {
+                $scope.courses = [];
+
+
+                $scope.loadData = function () {
+                    CourseService.loadCourse().then(function (data) {
+                        $scope.courses = data;
+                    }, function (error) {
+                        console.log(error);
+                    });
+                    console.log("Loaded successfully...");
+                };
+
+                $scope.addCourse = function () {
+                    console.log($scope.courseName);
+                    console.log($scope.courseCategory);
+                    console.log($scope.courseTimeline);
+                    console.log($scope.coursePrice);
+                    //$scope.loadData();
+                    $scope.courses.push(
+                        {
+                            "name": $scope.courseName,
+                            "category": $scope.courseCategory,
+                            "timeline": $scope.courseTimeline,
+                            "price": $scope.coursePrice
+                        }
+                    );
+                    console.log("Course added successfully... ", $scope.courses);
+                    $location.path("/courses");
+                };
+
+                $scope.getCourseById = function (id) {
+                    CourseService.getCourseById(id).then(function (data) {
+                        $scope.courseToEdit = data;
+                    }, function (errorMsg) {
+                        console.log(errorMsg);
+                    });
+                }
+
+                if ($routeParams.id) {
+                    $scope.getCourseById($routeParams.id);
+                }
+
+                $scope.loadData();
+            });
+        }());
+    </script>
+</head>
+
+<body>
+    <a href="#!/course/add">Add New Course</a>
+    <div ng-view>
+    </div>
+</body>
+
+</html>

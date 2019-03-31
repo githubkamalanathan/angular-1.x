@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Angular - Event Handlers</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="scripts/angular.js"></script>
+    <script>
+        (function () {
+            var name = 'myApp',
+                requires = [],
+                myApp = null;
+
+            myApp = angular.module(name, requires);
+            myApp.controller('AppCtrl', function ($scope) {
+                $scope.courses = [
+                    {name: "Quickstart Angular JS", category: "Development" , timeline : 30, price: 25 },
+                    {name: "The secrets to drawing", category: "Lifestyle" , timeline : 40, price: 49 },
+                    {name: "Become a certified web Developer", category: "Development" , timeline : 80, price: 199 },
+                    {name: "How to draft a business plan", category: "Business" , timeline : 30, price: 99 },
+                    {name: "Body Language for Entrepreneurs", category: "Personal Development" , timeline : 40, price: 25 },
+                    {name: "User Experience Design Fundamentals", category: "Design" , timeline : 20, price: 399 },
+                    {name: "Google Adwords for Beginners", category: "Marketing" , timeline : 25, price: 450 },
+                    {name: "Music theory classes", category: "Music" , timeline : 20, price: 599 },
+                    {name: "Everyday Mind mastery", category: "Personal Development" , timeline : 30, price: 30 },
+                    {name: "SEO for startup business", category: "Marketing" , timeline : 40, price: 299 }
+                ];
+
+                $scope.limitVal = 10;
+
+                $scope.formatDate = function(days){
+                    var now = new Date();
+                    return now.setDate(now.getDate() + days);
+                }
+            });
+        }());
+    </script>
+</head>
+
+<body ng-controller="AppCtrl">
+    <button ng-click="limitVal = 5">5</button>
+    <button ng-click="limitVal = 10">10</button><br/><br/>
+    
+    Name : <input type="text" ng-model="nameSearchText"/><br/><br/>
+    Category : <input type="text" ng-model="categorySearchText"/>
+    
+    <h1>Course(s) - {{courses.length}}</h1>
+    <table>
+        <thead>
+            <th>#</th>
+            <th>Course</th>
+            <th>Category</th>
+            <th>Timeline</th>
+            <th>Price</th>
+        </thead>
+        <tbody>
+            <tr ng-repeat="course in courses | limitTo : limitVal | filter : {name: nameSearchText, category: categorySearchText} | orderBy : ['name', '-price']">
+                <td>{{$index + 1}}</td>
+                <td>{{course.name | uppercase}}</td>
+                <td>{{course.category | lowercase}}</td>
+                <td>{{formatDate (course.timeline) | date: 'dd-MMM-yyyy'}}</td>
+                <td>{{course.price | currency: '$' }}</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+
+</html>

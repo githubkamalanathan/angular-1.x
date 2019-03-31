@@ -1,0 +1,26 @@
+﻿<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Dependency Injection.</title>
+    <script src="scripts/jquery-1.12.4.js"></script>
+    <script>
+        var SecurityPerson = function () {
+            this.secure = function () {
+                console.log('Taking care!');
+            }
+        }
+        var apartment = function(){
+            var person = new SecurityPerson();
+            person.secure();
+        }
+        apartment();
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

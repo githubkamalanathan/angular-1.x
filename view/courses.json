@@ -1,0 +1,62 @@
+[
+    {
+        "name": "Quickstart Angular JS",
+        "category": "Development",
+        "timeline": 30,
+        "price": 25
+    },
+    {
+        "name": "The secrets to drawing",
+        "category": "Lifestyle",
+        "timeline": 40,
+        "price": 49
+    },
+    {
+        "name": "Become a certified web Developer",
+        "category": "Development",
+        "timeline": 80,
+        "price": 199
+    },
+    {
+        "name": "How to draft a business plan",
+        "category": "Business",
+        "timeline": 30,
+        "price": 99
+    },
+    {
+        "name": "Body Language for Entrepreneurs",
+        "category": "Personal Development",
+        "timeline": 40,
+        "price": 25
+    },
+    {
+        "name": "User Experience Design Fundamentals",
+        "category": "Design",
+        "timeline": 20,
+        "price": 399
+    },
+    {
+        "name": "Google Adwords for Beginners",
+        "category": "Marketing",
+        "timeline": 25,
+        "price": 450
+    },
+    {
+        "name": "Music theory classes",
+        "category": "Music",
+        "timeline": 20,
+        "price": 599
+    },
+    {
+        "name": "Everyday Mind mastery",
+        "category": "Personal Development",
+        "timeline": 30,
+        "price": 30
+    },
+    {
+        "name": "SEO for startup business",
+        "category": "Marketing",
+        "timeline": 40,
+        "price": 299
+    }
+]

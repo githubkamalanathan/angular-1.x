@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en" ng-app="myApp">
+
+<head>
+    <meta charset="utf-8">
+    <title>Addition - Angular Controller sample.</title>
+    <script src="scripts/angular.js"></script>
+    <script>
+        (function () {
+            var name = "myApp",
+                requires = [],
+                myApp = null;
+
+            myApp = angular.module(name, requires);
+
+            myApp.controller("AppCtrl", function () {
+                this.add = function (firstNum, secondNum) {
+                    console.log('inside addition operation.');
+                    this.result = parseInt(firstNum) + parseInt(secondNum);
+                },
+                    this.subtract = function (firstNum, secondNum) {
+                        console.log('inside subtract operation.');
+                        this.result = parseInt(firstNum) - parseInt(secondNum);
+                    }
+            });
+        }());
+    </script>
+</head>
+
+<body ng-controller="AppCtrl as app">
+    <h1>Addition of two numbers.</h1>
+    First Number :
+    <input type="text" name="firstNum" id="firstNum" value="" ng-model="app.firstNum" />
+    <br/> Second Number :
+    <input type="text" name="secondNum" id="secondNum" value="" ng-model="app.secondNum" />
+    <br/>
+    <button id="calculateBtn" ng-click="app.subtract(app.firstNum, app.secondNum);">Calculate</button>
+    <br/>Result :
+    <p id="result" ng-bind="app.result"></p>
+</body>
+
+</html>

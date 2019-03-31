@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Angular Modules</title>
+    <script src="scripts/angular.js"></script>
+    <script>
+        // var myApp = angular.module("myApp", []);
+        // console.log(myApp);
+
+        (function () {
+            var name = "myApp";
+            var requires = [];
+            angular.module(name, requires);
+        }());
+
+        console.log(angular.module("myApp"));
+    </script>
+</head>
+
+<body>
+</body>
+
+</html>

@@ -1,0 +1,42 @@
+﻿<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Javascript Modules</title>
+    <script>
+        var account = function () {
+            var amount = 0;
+            var sendMessage = function () {
+                console.log('Sending message to user.');
+            }
+            var deposit = function (money) {
+                amount += money;
+                console.log('Balance after deposit: ' + amount);
+                sendMessage();
+            };
+
+            var withdraw = function (money) {
+                amount -= money;
+                console.log('Balance after withdraw: ' + amount);
+                sendMessage();
+            };
+
+            return {
+                deposit: deposit,
+                withdraw: withdraw
+            }
+        }
+
+        var a1 = account();
+        a1.deposit(1000);
+        a1.withdraw(250);
+        //a1.sendMessage();/throws error since it is not exposed.
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

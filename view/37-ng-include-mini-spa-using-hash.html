@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Angular - SPA - Using hash</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="scripts/angular.js"></script>
+    <script>
+        (function () {
+            var name = 'myApp',
+                requires = [],
+                myApp = null;
+
+            myApp = angular.module(name, requires);
+
+            myApp.controller('AppCtrl', function ($scope, $window, $location) {
+                $scope.url = "page1.html";
+                $window.addEventListener("hashchange", function () {
+                    //console.log($location.$$hash);
+                    $scope.$apply(function () {
+                        $scope.url = $location.$$hash.substring(1) + ".html";//substring(1) excludes 1 char slash (/)
+                    });
+                });
+            });
+        }());
+    </script>
+</head>
+
+<body ng-controller="AppCtrl">
+    <a href="#/page1">Page 1</a> | <a href="#/page2">Page 2</a>
+    <div ng-include="url"></div>
+</body>
+
+</html>

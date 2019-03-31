@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en" ng-app="myApp">
+
+<head>
+    <meta charset="utf-8">
+    <title>Controller Inheritance - Object</title>
+    <script src="scripts/angular.js"></script>
+    <script>
+        (function () {
+            var name = "myApp";
+            var requires = [];
+            var myApp = angular.module(name, requires);
+            myApp.controller('AppCtrl', function ($scope) {
+
+            });
+            myApp.controller('ParentCtrl', function ($scope) {
+                $scope.vm = {
+                    name: "Kamal"
+                }
+            });
+            myApp.controller('ChildCtrl', function ($scope) {
+                // If no scope defined and if the values modified either in parent / child, then the values will be modified each other.
+                $scope.vm = {}; // If scope defined by default, the parent/child will maintain their own state.
+            });
+        }());
+    </script>
+</head>
+
+<body ng-controller="AppCtrl">
+    <h1>Understanding Controller Inheritance</h1>
+    <div ng-controller="ParentCtrl">
+        <label>Parent Controller - Name</label>
+        <input ng-model="vm.name" />
+        <div ng-controller="ChildCtrl">
+            <label>Child Controller - Name</label>
+            <input ng-model="vm.name" />
+            <ul>
+                <li>Child controller name - {{vm.name}}</li>
+                <li>Parent controller name - {{$parent.vm.name}}</li>
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>

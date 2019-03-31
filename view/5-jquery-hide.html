@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Jquery Hide</title>
+    <script src="scripts/jquery-1.12.4.js"></script>
+</head>
+
+<body>
+    <p id="para">I am para! </p>
+    <div data-hide="false">I am div. Hide me... </div>
+    <script>
+        $('#para').hide();
+        $('div[data-hide="true"]').hide();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Angular - One/Two way binding directives</title>
+    <script src="scripts/angular.js"></script>
+    <script>
+        (function () {
+            var name = 'myApp',
+                requires = [],
+                myApp = null;
+
+            myApp = angular.module(name, requires);
+
+            myApp.controller('AppCtrl', function ($scope) {
+                $scope.contacts = [{
+                    firstName: "Kamalanathan", lastName: "Annamalai"
+                }, {
+                    firstName: "Ramkumar", lastName: "CR"
+                }, {
+                    firstName: "Vasanth", lastName: "V"
+                }];
+
+                $scope.addContact = function () {
+                    $scope.contacts.push({ firstName: "Deepak kumar", lastName: "S" });
+                }
+            });
+        }());
+    </script>
+</head>
+
+<body ng-controller="AppCtrl">
+    <h1>One way binding directives</h1>
+    <p>Contact record count(s): {{contacts.length}}</p>
+    <p>Add contacts:
+        <button type="button" ng-click="addContact();">Add Contact</button>
+    </p>
+    <p>Contact List first record : First Name - {{contacts[0].firstName}}, Last Name - {{contacts[0].lastName}}</p>
+
+    <p>Using ng-bind (2 way binding) >> Contact record count(s) : <span ng-bind="contacts.length"></span></p>
+
+    <p>Using ng-bind-template (2 way binding) >> Contact record count(s) : <span ng-bind-template="Contact record count(s): {{contacts.length}}, Contact List first record : First Name - {{contacts[0].firstName}}, Last Name - {{contacts[0].lastName}}"></span></p>
+
+    <p>Using ng-bing (1 way - one time binding) >> Contact record count(s) : <span ng-bind="::contacts.length"></span></p>
+
+    <p>Using non-bindable >> Contact record count(s) : <span ng-non-bindable="contacts.length"></span></p>
+
+    <p>Using class way >> Contact record count(s) : <span class="ng-bind: contacts.length"></span></p>
+
+    <h1>Two way binding directives</h1>
+    First Name : <input type="text" ng-model="contacts[0].firstName" />
+    Last Name : <input type="text" ng-model="contacts[0].lastName" />
+</body>
+
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Angular - ng-class directives</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .strike {
+            text-decoration: line-through;
+        }
+
+        .blue {
+            color: blue;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
+
+        .odd {
+            background-color: antiquewhite;
+        }
+
+        .even {
+            background-color: aqua;
+        }
+    </style>
+
+    <script src="scripts/angular.js"></script>
+    <script>
+        (function () {
+            var name = 'myApp',
+                requires = [],
+                myApp = null;
+
+            myApp = angular.module(name, requires);
+            myApp.controller('AppCtrl', function ($scope) {
+                $scope.contacts = [{
+                    firstName: "Kamalanathan", lastName: "Annamalai", favourite: true
+                }, {
+                    firstName: "Ramkumar", lastName: "CR", favourite: false
+                }, {
+                    firstName: "Deepak", lastName: "S", favourite: false
+                }, {
+                    firstName: "Vasanth", lastName: "V", favourite: true
+                }];
+            });
+        }());
+    </script>
+</head>
+
+<body ng-controller="AppCtrl">
+    <h4>Using string style</h4>
+    <hr/>
+    <input type="text" ng-model="style" placeholder="Type : bold strike blue" />
+    <p ng-class="style">The text will be decorated based on user entered string style class using ng-class directives.</p>
+
+
+    <h4>Using Map style</h4>
+    <hr/>
+    <input type="checkbox" ng-model="deleted" />Strike through
+    <input type="checkbox" ng-model="important" />stronger
+    <input type="checkbox" ng-model="success" />Color me
+    <p ng-class="{strike: deleted, blue: success, bold: important}">The text will be decorated using ng-class map style.</p>
+
+    <h4>Using array style</h4>
+    <hr/>
+    <p ng-class="['strike', 'blue', 'bold']">The text will be decorated using ng-class array style.</p>
+
+    <table>
+        <thead>
+            <th>S.No</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Favourite</th>
+            <th>First</th>
+            <th>Last</th>
+            <th>Middle</th>
+        </thead>
+        <tbody>
+            <tr ng-repeat="contact in contacts" ng-class-even="'even'" ng-class-odd="'odd'">
+                <td ng-bind="$index + 1"></td>
+                <td ng-bind="contact.firstName"></td>
+                <td ng-bind="contact.lastName"></td>
+                <td ng-bind="contact.favourite"></td>
+                <td ng-bind="$first"></td>
+                <td ng-bind="$last"></td>
+                <td ng-bind="$middle"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+
+</html>

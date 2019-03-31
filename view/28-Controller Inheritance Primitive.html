@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en" ng-app="myApp">
+
+<head>
+    <meta charset="utf-8">
+    <title>Controller Inheritance - Primitive</title>
+    <script src="scripts/angular.js"></script>
+    <script>
+        (function () {
+            var name = "myApp";
+            var requires = [];
+            var myApp = angular.module(name, requires);
+            myApp.controller('AppCtrl', function ($scope) {
+
+            });
+            myApp.controller('ParentCtrl', function ($scope) {
+                $scope.name = "Kamal";
+            });
+            myApp.controller('ChildCtrl', function ($scope) {
+                // No scope is defined. Hence, the ng-model inherits parent $scope.name value by default. 
+                // Once the values are modified in child text field, then the scope is redefined and the connection to parent controller is disconnected.
+            });
+        }());
+    </script>
+</head>
+
+<body ng-controller="AppCtrl">
+    <h1>Understanding Controller Inheritance</h1>
+    <div ng-controller="ParentCtrl">
+        <label>Parent Controller - Name</label>
+        <input ng-model="name" />
+        <div ng-controller="ChildCtrl">
+            <label>Child Controller - Name</label>
+            <input ng-model="name" />
+            <ul>
+                <li>Child controller name - {{name}}</li>
+                <li>Parent controller name - {{$parent.name}}</li>
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>

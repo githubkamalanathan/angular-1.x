@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en" ng-app="myApp">
+
+<head>
+    <meta charset="utf-8">
+    <title>Angular Model sample.</title>
+    <script src="scripts/angular.js"></script>
+    <script>
+        (function () {
+            var name = "myApp",
+                requires = [],
+                myApp = null;
+
+            myApp = angular.module(name, requires);
+
+            myApp.controller("AppCtrl", function ($scope) {
+                $scope.employee = {
+                    firstName: "Kamalanathan",
+                    lastName: "Annamalai",
+                    occupation: "Web Developer"
+                };
+                $scope.showMessage2 = function () {
+                    console.log('Click me! ');
+                }
+            });
+
+        }());
+    </script>
+</head>
+
+<body ng-controller="AppCtrl">
+    <p> {{employee.firstName + " " + employee.lastName + " - " + employee.occupation }} </p>
+    <button ng-click="showMessage();">Click Me</button>
+</body>
+
+</html>

@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Traditional Data Binding</title>
+    <script src="scripts/jquery-1.12.4.js"></script>
+</head>
+
+<body ng-controller="AppCtrl">
+    <h1>Data binding - traditional way</h1>
+
+    Task :
+    <span id="task">Example Task</span>
+    <br/> Done :
+    <input type="checkbox" id="statusCheck" />
+
+    <script>
+        var taskData;
+        function init() {
+            taskData = {
+                task: "Deep dive & understand Angular JS",
+                status: true
+            }
+
+            render();
+
+            $('#statusCheck').change(onStatusChange);
+        }
+
+        function render() {
+            $('#task').html(taskData.task);
+            $('#statusCheck').attr('checked', taskData.status);
+        }
+
+        function onStatusChange() {
+            var checked = $('#statusCheck').is(':checked');
+            console.log('Status checked : ' + checked);
+            taskData.status = checked;
+            console.log('Status checked of data : ' + taskData.status);
+        }
+        init();
+    </script>
+</body>
+
+</html>

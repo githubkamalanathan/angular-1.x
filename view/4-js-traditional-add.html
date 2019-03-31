@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Addition - Javascript traditional Development</title>
+</head>
+
+<body>
+    <h1>Addition of two numbers.</h1>
+    First Number :
+    <input type="text" name="firstNum" id="firstNum" value="" />
+    <br/> Second Number :
+    <input type="text" name="secondNum" id="secondNum" value="" />
+    <br/>
+    <button id="calculateBtn" onclick="calculate();">Calculate</button>
+    <br/>Result :
+    <p id="result"></p>
+    <script>
+        function calculate() {
+            var firstNum = parseInt(document.getElementById("firstNum").value);
+            var secondNum = parseInt(document.getElementById("secondNum").value);
+
+            var result = firstNum + secondNum;
+
+            document.getElementById("result").innerHTML = result;
+        }
+    </script>
+</body>
+
+</html>

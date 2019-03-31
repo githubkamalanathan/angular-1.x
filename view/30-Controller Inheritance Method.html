@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en" ng-app="myApp">
+
+<head>
+    <meta charset="utf-8">
+    <title>Controller Inheritance - Method</title>
+    <script src="scripts/angular.js"></script>
+    <script>
+        (function () {
+            var name = "myApp";
+            var requires = [];
+            var myApp = angular.module(name, requires);
+            myApp.controller('AppCtrl', function ($scope) {
+
+            });
+            myApp.controller('ParentCtrl', function ($scope) {
+                $scope.myArray = ["Kamal", "Vimal"];
+
+                $scope.add = function (item) {
+                    console.log('item getting added in parent ctrl...' + item);
+                    $scope.myArray.push(item);
+                }
+            });
+            myApp.controller('ChildCtrl', function ($scope) {
+                $scope.add = function (item, index) {
+                    console.log('item getting added in child ctrl...' + item);
+                    $scope.myArray.splice(index, 0, item);
+                }
+            });
+        }());
+    </script>
+</head>
+
+<body ng-controller="AppCtrl">
+    <h1>Understanding Controller Inheritance Method</h1>
+    <div ng-controller="ParentCtrl">
+        <p>{{myArray}}</p>
+        <label>Parent Controller - Name</label>
+        <input ng-model="parentName" />
+        <button ng-click="add(parentName)">Add from Parent item</button>
+
+        <div ng-controller="ChildCtrl">
+            <label>Child Controller - Name</label>
+            <input ng-model="childName" />
+            <input ng-model="index" />
+            <button ng-click="add(childName, index)">Add from Child item</button>
+        </div>
+    </div>
+</body>
+
+</html>

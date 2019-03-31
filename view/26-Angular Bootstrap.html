@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<!-- <html ng-app="myApp"> -->
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Angular - Bootstrap</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="scripts/angular.js"></script>
+    <script>
+        (function () {
+            var name = 'myApp',
+                requires = [],
+                myApp = null;
+
+            myApp = angular.module(name, requires);
+            myApp.controller('AppCtrl', function ($scope) {
+            });
+
+            angular.element(document).ready(function () {
+                angular.bootstrap(document, ["myApp"]);
+            });
+        }());
+    </script>
+</head>
+
+<body ng-controller="AppCtrl" ng-init="title='welcome'">
+    <h1>{{title}}</h1>
+    <!-- Binded from ng-init title variable -->
+</body>
+
+</html>

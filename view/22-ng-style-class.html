@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Angular - ng-style, ng-class directives</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="scripts/angular.js"></script>
+    <script>
+        (function () {
+            var name = 'myApp',
+                requires = [],
+                myApp = null;
+
+            myApp = angular.module(name, requires);
+            myApp.controller('AppCtrl', function ($scope) {
+            });
+        }());
+    </script>
+</head>
+
+<body ng-controller="AppCtrl">
+    <button ng-click="styles = {'font-weight':'bold'}">Set Bold</button>
+    <button ng-click="styles = {'color':'blue'}">Set Color</button>
+    <button ng-click="styles = {'font-style':'italic'}">Italics</button>
+    <p ng-style="styles">The text will be decorated with ng-style directives.</p>
+</body>
+
+</html>

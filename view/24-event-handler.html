@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Angular - Event Handlers</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="scripts/angular.js"></script>
+    <script>
+        (function () {
+            var name = 'myApp',
+                requires = [],
+                myApp = null;
+
+            myApp = angular.module(name, requires);
+            myApp.controller('AppCtrl', function ($scope) {
+                $scope.eventHandler = function (evt) {
+                    console.log('event type : ' + evt.type);
+                }
+            });
+        }());
+    </script>
+</head>
+
+<body ng-controller="AppCtrl">
+    <button ng-cick="eventHandler($event)" ng-mouseenter="eventHandler($event)" ng-mouseleave="eventHandler($event)" ng-mousemove="eventHandler($event)"
+        ng-mouseover="eventHandler($event)" ng-mouseup="eventHandler($event)" ng-mousedown="eventHandler($event)">Click me !!!</button>
+</body>
+
+</html>

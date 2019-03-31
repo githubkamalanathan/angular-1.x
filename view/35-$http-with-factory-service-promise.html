@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Angular - $http - Service - Promise API demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="scripts/angular.js"></script>
+    <script>
+        (function () {
+            var name = 'myApp',
+                requires = [],
+                myApp = null;
+
+            myApp = angular.module(name, requires);
+            myApp.factory("CourseService", function ($http, $q) {
+                return {
+                    loadCourse: function () {
+                        var deferred = $q.defer();//Promise API
+                        $http.get("courses.json").then(function (successData) {
+                            deferred.resolve(successData.data);
+                        }, function (errorData) {
+                            deferred.reject(errorData);
+                        });
+                        return deferred.promise;
+                    }
+                }
+            });
+            myApp.controller('AppCtrl', function ($scope, $http, CourseService) {
+                $scope.courses = [];
+
+                $scope.loadData = function () {
+                    CourseService.loadCourse().then(function (data) {
+                        $scope.courses = data;
+                    }, function (error) {
+                        console.log(error);
+                    });
+                };
+            });
+        }());
+    </script>
+</head>
+
+<body ng-controller="AppCtrl">
+    <div>
+        <h1>Courses(s)</h1>
+        <table>
+            <thead>
+                <th>#</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Timeline</th>
+                <th>Price</th>
+            </thead>
+            <tbody>
+                <tr ng-repeat="course in courses">
+                    <td>{{$index + 1}}</td>
+                    <td>{{course.name | uppercase}}</td>
+                    <td>{{course.category}}</td>
+                    <td>{{course.timeline}}</td>
+                    <td>{{course.price | currency: 'INR - '}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <button ng-click="loadData()">Load Data</button>
+    </div>
+</body>
+
+</html>

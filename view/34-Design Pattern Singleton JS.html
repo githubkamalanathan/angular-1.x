@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>JS Singleton pattern demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="scripts/angular.js"></script>
+    <script>
+        (function () {
+            function Person(name) {
+                this.name = name;
+            }
+
+            Person.prototype.work = function () {
+                console.log(this.name, "is working.");
+            }
+
+            var p1 = new Person("Kamal");
+            p1.work();
+
+            var p2 = new Person("Vasanth");
+            p2.work();
+
+            var PersonSingleton = (function() {
+                var instantiated;
+                function init() {
+                    // Singleton here
+                    return {
+                        name: "Anonymous",
+                        work: function () {
+                            console.log(this.name, "is also working in singleton mode.");
+                        }
+                    }
+                }
+                return {
+                    getInstance: function () {
+                        if (!instantiated) {
+                            instantiated = init();
+                        }
+                        return instantiated;
+                    }
+                }
+            })();
+            var p3 = PersonSingleton.getInstance();
+            p3.work();
+
+            var p4 = PersonSingleton.getInstance();
+            p4.name = "Vimal";
+            p4.work();
+            p3.work();
+        }());
+    </script>
+</head>
+
+<body>
+</body>
+
+</html>

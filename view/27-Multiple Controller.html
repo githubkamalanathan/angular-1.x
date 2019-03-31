@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Angular - Multiple Controllers (using pub-sub)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="scripts/angular.js"></script>
+    <script>
+        (function () {
+            var name = 'myApp',
+                requires = [],
+                myApp = null;
+
+            myApp = angular.module(name, requires);
+            myApp.controller('AppCtrl', function ($scope) {
+                $scope.$on('removeFromCart', function (event, product) {
+                    console.log('Removed item -> ' + product.name);
+                });
+            });
+            myApp.controller('ProductCtrl', function ($scope, $rootScope) {
+                $scope.products = [
+                    { name: "Computer", price: 350 },
+                    { name: "Watch", price: 50 },
+                    { name: "Mobile", price: 100 },
+                    { name: "Music System", price: 80 },
+                    { name: "Clothes", price: 200 }
+                ];
+
+                $scope.addToCart = function (product) {
+                    $rootScope.$broadcast('addToCart', product);
+                }
+            });
+            myApp.controller('CartCtrl', function ($scope) {
+                $scope.carts = [];
+
+                $scope.$on('addToCart', function (event, product) {
+                    console.log('addtocart - ' + product.name);
+                    $scope.carts.push(product);
+                });
+
+                $scope.removeFromCart = function (product) {
+                    $scope.$emit('removeFromCart', product);
+                }
+            });
+        }());
+    </script>
+</head>
+
+<body ng-controller="AppCtrl">
+    <div ng-controller="ProductCtrl">
+        <h1>Product(s)</h1>
+        <table>
+            <thead>
+                <th>#</th>
+                <th>Name</th>
+                <th>Price</th>
+            </thead>
+            <tbody>
+                <tr ng-repeat="product in products">
+                    <td>{{$index + 1}}</td>
+                    <td>{{product.name}}</td>
+                    <td>{{product.price | currency}}</td>
+                    <td>
+                        <button ng-click="addToCart(product)">Add to Cart</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div ng-controller="CartCtrl">
+        <!-- angular.element($0).scope() to see the scope properties -->
+        <h1>Cart(s)</h1>
+        Products will be added here.
+        <table>
+            <thead>
+                <th>#</th>
+                <th>Name</th>
+                <th>Price</th>
+            </thead>
+            <tbody>
+                <tr ng-repeat="cart in carts">
+                    <td>{{$index + 1}}</td>
+                    <td>{{cart.name}}</td>
+                    <td>{{cart.price | currency}}</td>
+                    <td>
+                        <button ng-click="removeFromCart(cart)">Remove from Cart</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

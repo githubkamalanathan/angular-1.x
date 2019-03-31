@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>DI - Banking</title>
+    <script>
+        var MessagingService = function() {
+            this.sendMessage = function () {
+                console.log('Sending message to user.');
+            }
+        }
+        var account = function () {
+            var amount = 0;
+            var msg = new MessagingService();
+            var deposit = function (money) {
+                amount += money;
+                console.log('Balance after deposit: ' + amount);
+                msg.sendMessage();
+            };
+
+            var withdraw = function (money) {
+                amount -= money;
+                console.log('Balance after withdraw: ' + amount);
+                msg.sendMessage();
+            };
+
+            return {
+                deposit: deposit,
+                withdraw: withdraw
+            }
+        }
+
+        var a1 = account();
+        a1.deposit(1000);
+        a1.withdraw(250);
+        //a1.sendMessage();/throws error since it is not exposed.
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

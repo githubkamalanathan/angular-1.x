@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Angular - ng-show, ng-hide, ng-if directives</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="scripts/angular.js"></script>
+    <script>
+        (function () {
+            var name = 'myApp',
+                requires = [],
+                myApp = null;
+
+            myApp = angular.module(name, requires);
+            myApp.controller('AppCtrl', function ($scope, $timeout) {
+                $scope.contacts = [{
+                    firstName: 'Kamalanathan', lastName: 'Annamalai', favorite: true
+                }, {
+                    firstName: 'Ramkumar', lastName: 'CR', favorite: false
+                }, {
+                    firstName: 'Rajasekar', lastName: 'M', favorite: true
+                }, {
+                    firstName: 'Vasantha kumar', lastName: 'V', favorite: false
+                }];
+                $scope.toggleFormContact = false;
+                $scope.showFormContact = function () {
+                    $scope.toggleFormContact = true;
+                }
+
+                $scope.addContact = function () {
+                    $scope.contacts.push({ firstName: $scope.firstName, lastName: $scope.lastName, favorite: $scope.favorite });
+                    
+                    console.log('Contacts added successfully...' + $scope.contacts.length);
+                    
+                    $scope.firstName = '';
+                    $scope.lastName = '';
+                    $scope.favorite = false;
+                };
+
+                $scope.url = "";
+
+                $timeout(function(){
+                    $scope.url = "https://www.google.com";
+                }, 3000);
+
+                $scope.imgSrc = "images/angular.png";
+            });
+        }());
+    </script>
+
+</head>
+
+<body ng-controller="AppCtrl">
+    <div ng-repeat="contact in contacts" ng-if="contact.favorite">
+        <span ng-bind="contact.firstName"></span>
+        <span ng-bind="contact.lastName"></span>
+    </div>
+    <button ng-click="showFormContact();">Add Contact</button>
+    <form ng-show="toggleFormContact">
+        First Name:
+        <input type="text" name="firstName" ng-model="firstName" />
+        <br/> Last Name:
+        <input type="text" name="lastName" ng-model="lastName" />
+        <br/> Favorite:
+        <input type="checkbox" name="favorite" ng-model="favorite" />
+
+        <button ng-click="toggleFormContact = false">Cancel</button>
+        <button ng-click="addContact();">Submit</button>
+    </form>
+    <p><a ng-href="{{url}}">Go to google.com</a></p>
+    <p><img ng-src="{{imgSrc}}"/></p>
+</body>
+
+</html>

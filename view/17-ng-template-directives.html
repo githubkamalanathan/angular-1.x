@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Angular - Template directives</title>
+    <style>
+        .odd {
+            background-color: antiquewhite;
+        }
+
+        .even {
+            background-color: aqua;
+        }
+    </style>
+    <script src="scripts/angular.js"></script>
+    <script>
+        (function () {
+            var name = 'myApp',
+                requires = [],
+                myApp = null;
+
+            myApp = angular.module(name, requires);
+
+            myApp.controller('AppCtrl', function ($scope) {
+                $scope.contacts = [{
+                    firstName: "Kamalanathan", lastName: "Annamalai", favourite: true
+                }, {
+                    firstName: "Ramkumar", lastName: "CR", favourite: false
+                }, {
+                    firstName: "Deepak", lastName: "S", favourite: false
+                }, {
+                    firstName: "Vasanth", lastName: "V", favourite: true
+                }];
+            });
+        }());
+    </script>
+</head>
+
+<body ng-controller="AppCtrl">
+    <ul>
+        <li ng-repeat="prop in contacts[0]">{{prop}}</li>
+    </ul>
+    <ul>
+        <li ng-repeat="(key, value) in contacts[0]">{{key}} : {{value}}</li>
+    </ul>
+    <table>
+        <thead>
+            <th>S.No</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Favourite</th>
+            <th>First</th>
+            <th>Last</th>
+            <th>Middle</th>
+        </thead>
+        <tbody>
+            <tr ng-repeat="contact in contacts" ng-class="$odd ? 'odd' : 'even'">
+                <td ng-bind="$index + 1"></td>
+                <td ng-bind="contact.firstName"></td>
+                <td ng-bind="contact.lastName"></td>
+                <td ng-bind="contact.favourite"></td>
+                <td ng-bind="$first"></td>
+                <td ng-bind="$last"></td>
+                <td ng-bind="$middle"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table>
+        <tr ng-repeat-start="contact in contacts">
+            <td>This is contact {{$index + 1}}</td>
+        </tr>
+        <tr>
+            <td>First name - {{contact.firstName}}, Last name - {{contact.lastName}}</td>
+        </tr>
+        <tr ng-repeat-end>
+            <td>This contact is {{ contact.favourite ? "" : "not"}} favourite.</td>
+        </tr>
+    </table>
+</body>
+
+</html>

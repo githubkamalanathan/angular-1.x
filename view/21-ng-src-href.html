@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Angular - ng-checked, ng-src, ng-href directives</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="scripts/angular.js"></script>
+    <script>
+        (function () {
+            var name = 'myApp',
+                requires = [],
+                myApp = null;
+
+            myApp = angular.module(name, requires);
+            myApp.controller('AppCtrl', function ($scope, $timeout) {
+                $scope.url = "";
+
+                $timeout(function () {
+                    $scope.url = "https://www.google.com";
+                }, 3000);
+
+                $scope.imgSrc = "images/angular.png";
+            });
+        }());
+    </script>
+</head>
+
+<body ng-controller="AppCtrl">
+    <p>
+        <a ng-href="{{url}}">Go to google.com</a>
+    </p>
+    <p>
+        <img ng-src="{{imgSrc}}" />
+    </p>
+</body>
+
+</html>

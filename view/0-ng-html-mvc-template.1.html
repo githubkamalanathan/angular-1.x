@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en" ng-app="myApp">
+
+<head>
+    <meta charset="utf-8">
+    <title>Angular controller template.</title>
+    <script src="scripts/angular.js"></script>
+    <script>
+        (function () {
+            var name = "myApp",
+                requires = [],
+                myApp = null;
+
+            myApp = angular.module(name, requires);
+
+            myApp.controller("AppCtrl", function () {
+            });
+        }());
+    </script>
+</head>
+
+<body ng-controller="AppCtrl as app">
+  
+</body>
+
+</html>

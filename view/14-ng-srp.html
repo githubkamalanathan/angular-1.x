@@ -1,0 +1,28 @@
+﻿<!doctype html>
+<html lang="en" ng-app="myApp">
+
+<head>
+    <meta charset="utf-8">
+    <title>Angular JS Single Responsibility Principle</title>
+    <script src="scripts/angular.js"></script>
+    <script src="scripts/14-srp-app.js"></script>
+</head>
+
+<body ng-controller="AppCtrl">
+    <p>Num 1 : <input type="text" name="firstNum" ng-model="firstNum" /></p>
+    <p>Num 2 : <input type="text" name="secondNum" ng-model="secondNum" /></p>
+    <p></p>
+        Operators: 
+        <button type="button" ng-click="setOperator('+');">Add (+)</button> 
+        <button type="button" ng-click="setOperator('-');">Subtract (-)</button> 
+    </p>
+    <p>
+    Action:
+    <button type="button" ng-click="calculate(firstNum, secondNum);">Calculate</button> 
+    </p>
+    <p>
+        Results: {{result}}
+    </p>
+</body>
+
+</html>

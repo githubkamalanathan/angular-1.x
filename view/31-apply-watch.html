@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en" ng-app="myApp">
+
+<head>
+    <meta charset="utf-8">
+    <title>Apply / Watch</title>
+    <script src="scripts/jquery-1.12.4.js"></script>
+    <script src="scripts/angular.js"></script>
+</head>
+
+<body>
+    <h1>Understanding Controller Inheritance Method</h1>
+    <div id="jqSection">
+        <h1>JQuery Section</h1>
+        <button id="jqBtn">JQ Button</button>
+    </div>
+    <div id="ngSection" ng-controller="NGCtrl">
+        <h1>Angular Section</h1>
+        <input type="checkbox" ng-model="jqBtnState" value="Toggle Button" /> Toggle state
+        <p>Counter: {{counter}}</p>
+    </div>
+    <script>
+        (function () {
+            $('#jqBtn').on('click', function () {
+                console.log('Button clicked.');
+                var scope = angular.element(ngSection).scope();
+                scope.$apply(function () {
+                    scope.jqBtnClick();
+                });
+            });
+
+            var name = "myApp";
+            var requires = [];
+            var myApp = angular.module(name, requires);
+            myApp.controller('NGCtrl', function ($scope) {
+                $scope.counter = 0;
+                $scope.jqBtnState = false;
+                $scope.$watch('jqBtnState', function (newValue) {
+                    $('#jqBtn').attr('disabled', newValue);
+                });
+                $scope.jqBtnClick = function () {
+                    $scope.counter++;
+                }
+            });
+
+        }());
+    </script>
+</body>
+
+</html>

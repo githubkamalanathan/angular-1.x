@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Angular - ng-include directives</title>
+    <style>
+        .odd {
+            background-color: antiquewhite;
+        }
+
+        .even {
+            background-color: aqua;
+        }
+    </style>
+    <script src="scripts/angular.js"></script>
+    <script>
+        (function () {
+            var name = 'myApp',
+                requires = [],
+                myApp = null;
+
+            myApp = angular.module(name, requires);
+
+            myApp.controller('AppCtrl', function ($scope) {
+                $scope.contacts = [{
+                    firstName: "Kamalanathan", lastName: "Annamalai", favourite: true
+                }, {
+                    firstName: "Ramkumar", lastName: "CR", favourite: false
+                }, {
+                    firstName: "Deepak", lastName: "S", favourite: false
+                }, {
+                    firstName: "Vasanth", lastName: "V", favourite: true
+                }];
+
+                $scope.url = '../view/18-contacts-table.html';
+
+                $scope.viewFile = function () {
+                    if ($scope.viewState) {
+                        return '../view/18-contacts-list.html';
+                    } else {
+                        return '../view/18-contacts-table.html';
+                    }
+                }
+
+                $scope.partialViewOnLoad = function () {
+                    console.info(this.viewFile() + ' loaded successfully...');
+                }
+            });
+        }());
+    </script>
+</head>
+
+<body ng-controller="AppCtrl">
+    <input type="checkbox" ng-model="viewState" />Toggle List view
+    <!-- <ng-include src="url"></ng-include>
+    <div ng-include="" src="'../view/18-contacts-list.html'"></div> -->
+    <ng-include src="viewFile()" onload="partialViewOnLoad()"></ng-include>
+</body>
+
+</html>

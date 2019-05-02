@@ -56,8 +56,6 @@
             });
             myApp.controller('CourseCtrl', function ($scope, $http, $location, $routeParams, CourseService) {
                 $scope.courses = [];
-
-
                 $scope.loadData = function () {
                     CourseService.loadCourse().then(function (data) {
                         $scope.courses = data;

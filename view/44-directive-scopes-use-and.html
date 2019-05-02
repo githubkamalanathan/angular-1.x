@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Angular - Directive Scopes - Use equals</title>
+    <title>Angular - Directive Scopes - Use and &</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <script src="scripts/angular.js"></script>
@@ -26,6 +26,9 @@
                     designation: "Jewellery Shop owner",
                     followers: ["Kamal", "Annamalai", "Lingeswaran"]
                 }
+                $scope.sendNominations = function (name, reason) {
+                    console.log(name, "has nominated the employee " + reason);
+                }
                 console.log("Parent Scope", $scope);
             });
             myApp.directive("employeeCard", function () {
@@ -34,20 +37,27 @@
                     template: "<strong>{{employee.name}}</strong> : <span>{{employee.designation}}</span>" +
                         " <div ng-show='!!employee.followers'>Followers: " +
                         "<ul><li ng-repeat='name in employee.followers'>{{name}}</li></ul>" +
-                        "<button ng-click='follow(\"Guru\")'>Follow</button>" +
+                        "<button ng-click='follow(\"Guru\")'>Follow</button>&nbsp;<button ng-click=\"nominate('Guru')\">Nominate</button>" +
+                        " <p>{{message}}</p>" +
                         "</div>",
                     restrict: "AEC",//A - Attribute; E - Element; C - Class; M - Comments (not mostly used)
                     //replace: true,
                     //scope: false // same as parent scope
                     //scope: true // Inherit from parent scope
                     scope: { // totally isolated from parent scope
-                        employee: "=employeeInfo" // employee is the scope object used in html and employeeInfo is the attribute to which needs to be mapped.
+                        employee: "=employeeInfo", // employee is the scope object used in html and employeeInfo is the attribute to which needs to be mapped.
+                        message: "@", // Use to pass string values
+                        sendNominations: "&"
                     },
                     controller: function ($scope) {
                         $scope.title = "Some title";
 
                         $scope.follow = function (name) {
                             $scope.employee.followers.push(name);
+                        }
+
+                        $scope.nominate = function (name) {
+                            $scope.sendNominations({ 'name': name, 'reason': "for his great achivement !!" });
                         }
                         console.log("Directive Scope", $scope);
                     }
@@ -58,7 +68,9 @@
 </head>
 
 <body ng-controller="AppCtrl">
-    <employee-card employee-info="employee"></employee-card>
+    <employee-card employee-info="employee" message="Employee of the Year - 2019"
+        send-nominations="sendNominations(name, reason)">
+    </employee-card>
     <employee-card employee-info="employee1"></employee-card>
 </body>
 

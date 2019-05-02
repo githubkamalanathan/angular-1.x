@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Angular - Directive Scopes - Use equals</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="scripts/angular.js"></script>
+
+    <script>
+        (function () {
+            var name = "myApp",
+                requires = [],
+                myApp = null;
+            myApp = angular.module(name, requires);
+            myApp.controller("AppCtrl", function ($scope) {
+                $scope.employee = {
+                    name: "Kamalanathan Annamalai",
+                    designation: "Tech Lead",
+                    followers: ["Krishna", "Baala", "Pandiaraj"]
+                }
+                $scope.employee1 = {
+                    name: "Vimalanathan Annamalai",
+                    designation: "Jewellery Shop owner",
+                    followers: ["Kamal", "Annamalai", "Lingeswaran"]
+                }
+                console.log("Parent Scope", $scope);
+            });
+            myApp.directive("employeeCard", function () {
+                return {
+                    //templateUrl: "partials/employee-info.html", // Not working while executing from local
+                    template: "<strong>{{employee.name}}</strong> : <span>{{employee.designation}}</span>" +
+                        " <div ng-show='!!employee.followers'>Followers: " +
+                        "<ul><li ng-repeat='name in employee.followers'>{{name}}</li></ul>" +
+                        "<button ng-click='follow(\"Guru\")'>Follow</button>" +
+                        "</div>",
+                    restrict: "AEC",//A - Attribute; E - Element; C - Class; M - Comments (not mostly used)
+                    //replace: true,
+                    //scope: false // same as parent scope
+                    //scope: true // Inherit from parent scope
+                    scope: { // totally isolated from parent scope
+                        employee: "=employeeInfo"
+                    },
+                    controller: function ($scope) {
+                        $scope.title = "Some title";
+
+                        $scope.follow = function (name) {
+                            $scope.employee.followers.push(name);
+                        }
+                        console.log("Directive Scope", $scope);
+                    }
+                }
+            });
+        }());
+    </script>
+</head>
+
+<body ng-controller="AppCtrl">
+    <employee-card employee-info="employee"></employee-card>
+    <employee-card employee-info="employee1"></employee-card>
+</body>
+
+</html>

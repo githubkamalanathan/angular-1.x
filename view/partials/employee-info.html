@@ -1,0 +1,5 @@
+<strong>{{employee.name}}</strong> : <span>{{employee.designation}}</span>
+<div ng-show='!!employee.followers'>Followers: <ul>
+        <li ng-repeat='name in employee.followers'>{{name}}</li>
+    </ul>
+</div>

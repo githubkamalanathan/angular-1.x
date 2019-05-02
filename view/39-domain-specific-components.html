@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Domain Specific Components</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="scripts/angular.js"></script>
+
+    <script>
+        (function () {
+            var name = "myApp",
+                requires = [],
+                myApp = null;
+            myApp = angular.module(name, requires);
+            myApp.controller("AppCtrl", function ($scope) {
+
+            });
+            myApp.directive("employeeCard", function () {
+                return {
+                    template: "<strong>Employee Card</strong>",
+                    restrict: "AEC"//A - Attribute; E - Element; C - Class; M - Comments (not mostly used)
+                }
+            });
+        }());
+    </script>
+</head>
+
+<body ng-controller="AppCtrl">
+    <employee-card></employee-card>
+    <div employee-card></div>
+    <div class="employee-card"></div>
+</body>
+
+</html>

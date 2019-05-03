@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Angular - Decorator Directives using Link Function</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="scripts/angular.js"></script>
+
+    <script>
+        (function () {
+            var name = "myApp",
+                requires = [],
+                myApp = null;
+            myApp = angular.module(name, requires);
+            myApp.controller("AppCtrl", function ($scope) {
+
+            });
+            myApp.directive("allowNumbersOnly", function () {
+                return {
+                    restrict: "A",
+                    link: function (scope, element, attrs) { // Use link function when there is a DOM manipulation and event handling.
+                        var message = attrs.allowNumbersOnly;
+                        var spanElement = angular.element("<span></span>");
+                        spanElement.html(message);
+                        element.after(spanElement);
+
+                        element.on("keydown", function (event) {
+                            if (event.keyCode > 31 && (event.keyCode < 48 || event.keyCode > 57)) {
+                                event.preventDefault();
+                                console.info('Characters not allowed.');
+                                return false;
+                            }
+                            return true;
+                        });
+                    }
+                }
+            });
+        }());
+    </script>
+</head>
+
+<body ng-controller="AppCtrl">
+    <input type="text" allow-numbers-only="Please enter number only" />
+</body>
+
+</html>

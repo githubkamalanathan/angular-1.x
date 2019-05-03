@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Angular - Interpolator Directives using Link function</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="scripts/angular.js"></script>
+
+    <script>
+        (function () {
+            var name = "myApp",
+                requires = [],
+                myApp = null;
+            myApp = angular.module(name, requires);
+            myApp.controller("AppCtrl", function ($scope) {
+                $scope.name = "Kamalanathan Annamalai";
+            });
+            myApp.directive("interpolator", function ($interpolate) {
+                return function (scope, element, attrs) { // Use link function when there is a DOM manipulation and event handling.
+                    scope.$watch("ngExp", function (newVal) {//Watch the ng expression and accepts new value as arguments.
+                        if (newVal) {
+                            var interpolateFn = $interpolate(newVal);//Parse the ng expression and return function.
+                            var output = interpolateFn(scope);//Pass scope object to map the parsed ng expression and get corresponding value of it.
+                            console.info(output);
+                            if (output) {
+                                element.html("<span>" + output + "</span>");
+                            } else {
+                                element.html("<span>Invalid Input !!!</span>");
+                            }
+                        }
+                    });
+                }
+            });
+        }());
+    </script>
+</head>
+
+<body ng-controller="AppCtrl">
+    <p>Input angular specific expression:</p>
+    <textarea type="text" ng-model="ngExp"></textarea>
+    <p interpolator></p>
+    <!-- Provide input as {{name}} [{{'convert to uppercase' |  uppercase}}]-->
+</body>
+
+</html>

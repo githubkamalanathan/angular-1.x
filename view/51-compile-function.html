@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Angular - Compiler Directives vs Compile function</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="scripts/angular.js"></script>
+
+    <script>
+        (function () {
+            var name = "myApp",
+                requires = [],
+                myApp = null;
+            myApp = angular.module(name, requires);
+            myApp.controller("AppCtrl", function ($scope) {
+                $scope.name = "Kamalanathan Annamalai";
+                $scope.likes = ["Music", "Cricket", "Kho Kho"];
+            });
+            myApp.directive("compiler", function ($compile) {
+                return {
+                    compile: function (element, attrs) {
+                        var html = "<input type='text' ng-model='name'/><p>{{name}}</p>";
+                        var output = angular.element(html);
+                        element.append(output);
+                    }
+                }
+                /*return function (scope, element, attrs) { // Use link function when there is a DOM manipulation and event handling.
+                    var html = "<input type='text' ng-model='name'/><p>{{name}}</p>";
+                    var outputel = angular.element(html);
+                    var compileFn = $compile(outputel);
+                    var output = compileFn(scope);
+                    element.append(output);
+                }*/
+                /* - No compilation and no data binding.
+                return function (scope, element, attrs) { // Use link function when there is a DOM manipulation and event handling.
+                    var html = "<input type='text' ng-model='name'/><p>{{name}}</p>";
+                    var output = angular.element(html);
+                    element.append(output);
+                }*/
+            });
+        }());
+    </script>
+</head>
+
+<body ng-controller="AppCtrl">
+    <p compiler></p>
+    <!-- Provide input as 
+        <span>{{name}} [{{'convert to uppercase' |  uppercase}}]</span><p><ul ng-repeat="like in likes"><li>{{like}}</li></ul></p> -->
+</body>
+
+</html>

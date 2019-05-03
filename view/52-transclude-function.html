@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Angular - Transclude Directives</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="scripts/angular.js"></script>
+
+    <script>
+        (function () {
+            var name = "myApp",
+                requires = [],
+                myApp = null;
+            myApp = angular.module(name, requires);
+            myApp.controller("AppCtrl", function ($scope) {
+                $scope.employee = {
+                    name: "Kamalanathan Annamalai",
+                    info: "Welcome to angular transclude demo."
+                }
+                $scope.likes = ["Music", "Cricket", "Kho Kho"];
+            });
+            myApp.directive("panel", function () {
+                return {
+                    transclude: true,
+                    replace: true,
+                    scope: {
+                        title: "="
+                    },
+                    template: "<div>{{title}}<div ng-transclude></div></div>"
+                }
+            });
+        }());
+    </script>
+</head>
+
+<body ng-controller="AppCtrl">
+    <div panel title="employee.name">
+        <p>
+            <ul ng-repeat="like in likes">
+                <li ng-bind="like"></li>
+            </ul>
+        </p>
+    </div>
+</body>
+
+</html>
